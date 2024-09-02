@@ -1488,7 +1488,7 @@ body {
   background: var(--global-bg);
   color: var(--font-color);
   font-size: var(--global-font-size);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: -apple-system;
   line-height: 2;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -1514,7 +1514,7 @@ input::placeholder {
   z-index: -999;
   width: 100%;
   height: 100%;
-  background: url(https://smms.app/image/ODtyBlZWJ4N3P5F);
+  background: url(https://s2.loli.net/2024/08/28/hjm6ix2J8fzgucl.jpg);
   background-attachment: local;
   background-position: center;
   background-size: cover;
@@ -1766,7 +1766,7 @@ figure.highlight pre .javascript .function {
 #article-container pre,
 #article-container code {
   font-size: 14px;
-  font-family: consolas, Menlo, 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+  font-family: consolas,"Microsoft YaHei" !important;
 }
 #article-container code {
   padding: 2px 4px;
@@ -4009,7 +4009,7 @@ h1.page-title + .tag-cloud-list {
   position: absolute;
   top: calc(50% - 7px);
   color: #f47466;
-  content: '\f8G3';
+  content: '\f863';
   left: 0;
   line-height: 1;
   -webkit-transition: all 0.2s ease-out;
