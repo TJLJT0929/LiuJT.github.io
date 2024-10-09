@@ -1,0 +1,331 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>统计学习方法--第11章 条件随机场 | LiuJT's Blog</title><meta name="author" content="LiuJT"><meta name="copyright" content="LiuJT"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 概率无向图模型条件随机场（CRF）是给定一组输入随机变量的条件下，另一组输出随机变量的条件概率分布模型，其特点是假设输出随机变量构成马尔可夫随机场。  条件随机场可用于预测问题，书中仅讨论分类问题 主要讲述线性链条件随机场 问题：由输入对输出的判别模型，学习方法采用极大似然估计  1.1 概率无向图模型的定义 图是结点和连接结点的边组成的集合，$G&#x3D;(V,E)$ 表示联合概率分布 $P(Y)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计学习方法--第11章 条件随机场">
+<meta property="og:url" content="http://example.com/2024/10/09/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC11%E7%AB%A0%20%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/index.html">
+<meta property="og:site_name" content="LiuJT&#39;s Blog">
+<meta property="og:description" content="1. 概率无向图模型条件随机场（CRF）是给定一组输入随机变量的条件下，另一组输出随机变量的条件概率分布模型，其特点是假设输出随机变量构成马尔可夫随机场。  条件随机场可用于预测问题，书中仅讨论分类问题 主要讲述线性链条件随机场 问题：由输入对输出的判别模型，学习方法采用极大似然估计  1.1 概率无向图模型的定义 图是结点和连接结点的边组成的集合，$G&#x3D;(V,E)$ 表示联合概率分布 $P(Y)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/28/XEcyAr5SxWQFhfC.jpg">
+<meta property="article:published_time" content="2024-10-09T14:59:29.428Z">
+<meta property="article:modified_time" content="2024-10-09T14:26:39.236Z">
+<meta property="article:author" content="LiuJT">
+<meta property="article:tag" content="统计学习方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/28/XEcyAr5SxWQFhfC.jpg"><link rel="shortcut icon" href="https://s2.loli.net/2024/08/28/WOMi84ksFx3dGY1.jpg"><link rel="canonical" href="http://example.com/2024/10/09/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC11%E7%AB%A0%20%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '统计学习方法--第11章 条件随机场',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-09 22:26:39'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/WOMi84ksFx3dGY1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 索引</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-calendar"></i><span> 时间</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-cogs"></i><span> 分类</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 统计方法</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Supervised-Learning/"><i class="fa-fw fas fa-book"></i><span> 有监督学习</span></a></li><li><a class="site-page child" href="/Unsupervised-Learning/"><i class="fa-fw fas fa-book"></i><span> 无监督学习</span></a></li><li><a class="site-page child" href="/Reinforcement-Learning/"><i class="fa-fw fas fa-book"></i><span> 强化学习</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 概率理论</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/MarkovDecisionProcess/"><i class="fa-fw fas fa-book"></i><span> 马氏决策过程</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 书籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/ESL/"><i class="fa-fw fas fa-book"></i><span> 统计学习要素</span></a></li><li><a class="site-page child" href="/Big-Data-Statistics/"><i class="fa-fw fas fa-book"></i><span> 大数据时代下的统计学</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 常用软件</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Pycharm/"><i class="fa-fw fas fa-cogs"></i><span> Pycharm</span></a></li><li><a class="site-page child" href="/LaTeX/"><i class="fa-fw fas fa-cogs"></i><span> LaTeX</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://s2.loli.net/2024/08/28/XEcyAr5SxWQFhfC.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="LiuJT's Blog"></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 索引</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-calendar"></i><span> 时间</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-cogs"></i><span> 分类</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 统计方法</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Supervised-Learning/"><i class="fa-fw fas fa-book"></i><span> 有监督学习</span></a></li><li><a class="site-page child" href="/Unsupervised-Learning/"><i class="fa-fw fas fa-book"></i><span> 无监督学习</span></a></li><li><a class="site-page child" href="/Reinforcement-Learning/"><i class="fa-fw fas fa-book"></i><span> 强化学习</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 概率理论</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/MarkovDecisionProcess/"><i class="fa-fw fas fa-book"></i><span> 马氏决策过程</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 书籍</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/ESL/"><i class="fa-fw fas fa-book"></i><span> 统计学习要素</span></a></li><li><a class="site-page child" href="/Big-Data-Statistics/"><i class="fa-fw fas fa-book"></i><span> 大数据时代下的统计学</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 常用软件</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Pycharm/"><i class="fa-fw fas fa-cogs"></i><span> Pycharm</span></a></li><li><a class="site-page child" href="/LaTeX/"><i class="fa-fw fas fa-cogs"></i><span> LaTeX</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">统计学习方法--第11章 条件随机场</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-10-09T14:59:29.428Z" title="发表于 2024-10-09 22:59:29">2024-10-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="统计学习方法--第11章 条件随机场"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="1-概率无向图模型"><a href="#1-概率无向图模型" class="headerlink" title="1. 概率无向图模型"></a>1. 概率无向图模型</h3><p>条件随机场（CRF）是给定一组输入随机变量的<strong>条件</strong>下，另一组输出随机变量的条件概率分布模型，其特点是假设输出随机变量构成<strong>马尔可夫随机场</strong>。</p>
+<ul>
+<li>条件随机场可用于预测问题，书中仅讨论分类问题</li>
+<li>主要讲述<strong>线性链</strong>条件随机场</li>
+<li>问题：由输入对输出的判别模型，学习方法采用极大似然估计</li>
+</ul>
+<h4 id="1-1-概率无向图模型的定义"><a href="#1-1-概率无向图模型的定义" class="headerlink" title="1.1 概率无向图模型的定义"></a>1.1 概率无向图模型的定义</h4><ul>
+<li>图是结点和连接结点的边组成的集合，$G=(V,E)$ 表示联合概率分布 $P(Y)$</li>
+<li>结点 $\nu\in V$ 表示一个随机变量 $Y<em>{\nu}$ ，$Y=(Y</em>{\nu})_{\nu \in V}$</li>
+<li>边 $e\in E​$ 表示随机变量之间的概率依赖关系</li>
+<li>无向图表示<strong>边没有方向</strong>的图</li>
+</ul>
+<p>概率无向图模型又称<strong>马尔可夫随机场(MRF)</strong>，是一个可以由<strong>满足以下三个性质的无向图</strong>表示的<strong>联合概率分布</strong>。</p>
+<ul>
+<li><p><strong>成对马尔可夫性</strong>：给定随机变量组 $Y_O$ 的条件下随机变量 $Y_u$ 和 $Y_v$ 是条件独立的</p>
+<script type="math/tex; mode=display">P(Y_u,Y_v|Y_O)=P(Y_u|Y_O)P(Y_v|Y_O)</script></li>
+<li><p><strong>局部马尔可夫性</strong>：给定随机变量组 $Y_W​$ 的条件下随机变量 $Y_v​$ 与随机变量组 $Y_O​$ 是独立的</p>
+<script type="math/tex; mode=display">P(Y_v,Y_O|Y_W)=P(Y_v|Y_W)P(Y_O|Y_W)​</script></li>
+<li><p><strong>全局马尔可夫性</strong>：给定随机变量组 $Y_C$ 的条件下随机变量组 $Y_A$ 和 $Y_B$ 是条件独立的</p>
+<script type="math/tex; mode=display">P(Y_A,Y_B|Y_C)=P(Y_A|Y_C)P(Y_B|Y_C)</script></li>
+</ul>
+<p><strong>定义 1（概率无向图模型）</strong>： 设有联合概率分布 $ P(Y) $，由无向图 $ G = (V, E) $ 表示，在图 $ G $ 中，结点表示随机变量，边表示随机变量之间的依赖关系。如果联合概率分布 $ P(Y) $ 满足成对、局部或全局马尔可夫性，就称此联合概率分布为概率无向图模型，或马尔可夫随机场（Markov random field）。</p>
+<h4 id="1-2-概率无向图的因子分解"><a href="#1-2-概率无向图的因子分解" class="headerlink" title="1.2 概率无向图的因子分解"></a>1.2 概率无向图的因子分解</h4><p>因子分解之前需定义无向图的团与最大团：</p>
+<ul>
+<li>团：任何两个结点有边连接的结点子集</li>
+<li>最大团：不能再加进其他结点成为一个更大的团</li>
+</ul>
+<p><strong>什么是概率无向图的因子分解？</strong> 给定概率无向图模型，设其无向图为 $G$，$ C $ 为 $ G $ 上的最大团，$ Y_C $ 表示 $ C $ 对应的随机变量。那么概率无向图模型的联合概率分布 $ P(Y) $ 可写作图中所有最大团 $ C $ 上的函数 $ \psi_C(Y_C) $ 的乘积形式，即</p>
+<script type="math/tex; mode=display">
+P(Y) = \frac{1}{Z} \prod_{C} \psi_C(Y_C)</script><p>其中，$ Z $ 是归一化因子（normalization factor），由式</p>
+<script type="math/tex; mode=display">
+Z = \sum_{Y} \prod_{C} \psi_C(Y_C)</script><p>给出。函数 $ \psi_C(Y_C) $ 称为势函数（potential function）。这里要求势函数 $ \psi_C(Y_C) $ 是严格正的，通常定义为指数函数：</p>
+<script type="math/tex; mode=display">
+\psi_C(Y_C) = \exp\{-E(Y_C)\}</script><p><strong>因子分解的理论保证</strong>：Hammersley-Clifford 定理</p>
+<h3 id="2-条件随机场"><a href="#2-条件随机场" class="headerlink" title="2. 条件随机场"></a>2. 条件随机场</h3><h4 id="2-1-定义"><a href="#2-1-定义" class="headerlink" title="2.1 定义"></a>2.1 定义</h4><p><strong>条件随机场</strong>：给定随机变量 $X$ 条件下，随机变量 $Y$ 的马尔可夫随机场。</p>
+<script type="math/tex; mode=display">
+P(Y_v|X,Y_w,w \neq v)=P(Y_v|X,Y_w,w \sim v)</script><p>表示计算结点 $V$ 以外的所有结点的条件概率，只需要考虑与结点 $V$ 有边连接的结点。</p>
+<p><strong>线性链条件随机场</strong>：设 $X=(X_1,X_2,\cdots,X_n)，Y=(Y_1,Y_2,\cdots,Y_n)$ 均为线性链表示的随机变量序列，若在给定随机变量序列 $X$ 的条件下，随机变量序列 $Y$ 的条件概率分布 $P(Y|X)$ 构成条件随机场，即满足马尔可夫性</p>
+<script type="math/tex; mode=display">
+P(Y_i|X,Y_1,\cdots,Y_{i-1},Y_{i+1},\cdots,Y_n)=P(Y_i|X,Y_{i-1},Y_{i+1})\\
+i=1,2,\cdots,n (在i=1和n时只考虑单边)</script><p>则称$P(Y|X)$为线性链条件随机场。<strong>在标注问题中</strong>，$X$表示输入观测序列， $Y$表示输出标记序列或状态序列。</p>
+<h4 id="2-2-条件随机场的参数化形式"><a href="#2-2-条件随机场的参数化形式" class="headerlink" title="2.2 条件随机场的参数化形式"></a>2.2 条件随机场的参数化形式</h4><p>随机变量 $X$ 取值为 $x$ 的<strong>条件</strong>下，随机变量 $Y$ 取值为 $y$ 的条件概率具有如下形式：</p>
+<script type="math/tex; mode=display">
+P(y|x)=\frac{1}{Z}\exp\left(\sum_{i,k}\lambda_kt_k(y_{i-1},y_i,x,i+\sum_{i,l}\mu_ls_l(y_i,x,i)\right)</script><p>其中</p>
+<script type="math/tex; mode=display">
+Z(x)=\sum_y exp \left(\sum_{i,k}\lambda_kt_k(y_{i-1},y_i,x,i)+\sum_{i,l}\mu_ls_l(y_i,x,i)\right)</script><p>$t_k,s_l$ 是特征函数：</p>
+<ul>
+<li>$t_k$ ：定义边上的特征，称为转移特征，依赖当前和前一个位置</li>
+<li>$s_l$：定义结点的特征，称为状态特征，依赖于位置</li>
+<li>特征函数一般是示性函数，取值 0 和 1</li>
+</ul>
+<h4 id="2-3-条件随机场的简化形式"><a href="#2-3-条件随机场的简化形式" class="headerlink" title="2.3 条件随机场的简化形式"></a>2.3 条件随机场的简化形式</h4><p>上面的结构，包含了两个部分，表达式不够简单.设有 $K_1$ 个转移特征， $K_2$ 个状态特征</p>
+<script type="math/tex; mode=display">
+\color{red}
+f_k(y_{i-1},y_i,x,i)=
+\begin{cases}
+t_k(y_{i-1},y_i,x,i),&k=1,2,\dots,K_1\\
+s_l(y_i,x,i),&k=K_1+l;l=1,2,\dots,K_2
+\end{cases}</script><p>然后，对转和状态特征在各个位置 $i$ 求和，记作</p>
+<script type="math/tex; mode=display">
+f_k(y,x)=\sum_{i=1}^nf_k(y_{i-1},y_i,x,i),k=1,2,\dots,K</script><p>用 $w_k$ 表示特征 $f_k(y,x)$ 的权值</p>
+<script type="math/tex; mode=display">
+w_k=
+\begin{cases}
+\lambda_k,&k=1,2,\dots,K_1\\
+\mu_l,&k=K1+l;l=1,2,\dots,K_2
+\end{cases}</script><p>于是条件随机场可以表示为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+P(y|x)&=\frac{1}{Z(x)}\exp\sum_{k=1}^Kw_kf_k(y,x)\\
+Z(x)&=\sum_y\exp\sum_{k=1}^Kw_kf_k(y,x)
+\end{align*}</script><p>若以 $w$ 表示权值向量， 即</p>
+<script type="math/tex; mode=display">
+w=(w_1,w_2,\dots,w_K)^T</script><p>以 $F$ 表示全局特征向量，即</p>
+<script type="math/tex; mode=display">
+F(y,x)=(f_1(y,x),f_2(y,x),\dots,f_K(y,x))^T</script><p>条件随机场可以表示成向量内积的形式</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+P_w(y|x)&=\frac{\exp(w\cdot F(y,x))}{Z_w(x)}\\
+Z_w(x)&=\sum_y\exp\left(w\cdot F(y,x)\right)
+\end{align*}</script><h4 id="2-4-条件随机场的矩阵形式"><a href="#2-4-条件随机场的矩阵形式" class="headerlink" title="2.4 条件随机场的矩阵形式"></a>2.4 条件随机场的矩阵形式</h4><p>针对线性链条件随机场，引入起点和终点状态标记 $y<em>0=start,y</em>{n+1}=end$， 这时 $P_w(y|x)$ 可以矩阵形式表示。</p>
+<p>对观测序列的<strong>每个位置</strong> $i=1,2,\dots,\color{red}n+1$，定义一个 $m$ 阶矩阵（ $m$ 是标记 $y_i$ 取值的个数）</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+M_i(x)&=\left[M_i(y_{i-1},y_i|x)\right]\\
+M_i(y_{i-1},y_i)&=\exp\left(W_i(y_{i-1},y_i|x)\right)\\
+W_i(y_{i-1},y_i|x)&=\sum_{k=1}^Kw_kf_k(y_{i-1},y_i|x)
+\end{align*}</script><p>把整个向量乘法按照<strong>观测位置</strong>拆成矩阵形式， 每个观测位置对应一个矩阵</p>
+<p>给定观测序列 $x$，相应的标记序列 $y$ 的非规范化概率可以通过该序列的 $n+1$ 个矩阵适当元素的乘积 $\prod<em>{i=1}^{n+1}M_i(y</em>{i-1},y_i|x)$ 表示。于是</p>
+<script type="math/tex; mode=display">
+P_w(y|x)=\frac{1}{Z_w(x)}\prod_{i=1}^{n+1}M_i(y_{i-1},y_i|x)</script><p>其中，$Z_w$为规范化因子，$\color{red}是n+1个矩阵的乘积的(start,stop)元素$：</p>
+<script type="math/tex; mode=display">
+Z_w(x)=(M_1(x)M_2(x)\dots M_{n+1}(x))_{start,stop}</script><p>上面的式子展开一下，得到 $n+1$ 个 $\color{red}m$ 阶矩阵</p>
+<script type="math/tex; mode=display">
+M_i(x)=\left[\exp\left(\sum_{k=1}^Kw_kf_k(y_{i-1},y_i|x)\right)\right], i=1,2,\dots,n+1</script><h3 id="3-条件随机场的概率计算问题"><a href="#3-条件随机场的概率计算问题" class="headerlink" title="3. 条件随机场的概率计算问题"></a>3. 条件随机场的概率计算问题</h3><p>依旧是引入前向-后向向量递归计算概率和期望。</p>
+<blockquote>
+<p>前向向量 $\alpha_i(x)$</p>
+<ol>
+<li>初值<script type="math/tex; mode=display">\alpha_0(y|x)=
+ \begin{cases}
+ 1,&y=start \\
+ 0,&others
+ \end{cases}</script></li>
+<li>递推<script type="math/tex; mode=display">
+\alpha_i^T(y_i|x)=\alpha_{i-1}^T(y_{i-1}|x)[M_i(y_{i-1},y_i|x)],i=1,2,\dots,n+1</script></li>
+</ol>
+<p>$\alpha_i(y_i|x)$ 表示在位置 $i$ 的标记是 $y_i$ 并且到位置 $i$ 的前部标记序列的非规范化概率，$y_i$ 可取的值有 $m$ 个，所以 $\alpha_i(x)$ 是 $m$ 维列向量</p>
+<p>后向向量 $\beta_i(x)$</p>
+<ol>
+<li>初值<script type="math/tex; mode=display">\beta_{n+1}(y_{n+1}|x)=
+\begin{cases}
+1,&y_{n+1}=stop \\
+0,&others
+\end{cases}</script></li>
+<li>递推<script type="math/tex; mode=display">\beta_i(y_i|x)=[M_{i+1}(y_i,y_{i+1}|x)]\beta_{i+1}(y_{i+1}|x),i=1,2,\dots,n+1</script></li>
+</ol>
+<p>$\beta_i(y_i|x)$ 表示在位置 $i$ 的标记是 $y_i$ 并且从 $i+1$ 到 $n$ 的后部标记序列的非规范化概率</p>
+</blockquote>
+<h3 id="4-条件随机场的学习算法"><a href="#4-条件随机场的学习算法" class="headerlink" title="4. 条件随机场的学习算法"></a>4. 条件随机场的学习算法</h3><h4 id="4-1-改进的迭代尺度法"><a href="#4-1-改进的迭代尺度法" class="headerlink" title="4.1 改进的迭代尺度法"></a>4.1 改进的迭代尺度法</h4><h4 id="4-2-拟牛顿法"><a href="#4-2-拟牛顿法" class="headerlink" title="4.2 拟牛顿法"></a>4.2 拟牛顿法</h4></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">LiuJT</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/10/09/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC11%E7%AB%A0%20%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/">http://example.com/2024/10/09/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC11%E7%AB%A0%20%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">LiuJT's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/">统计学习方法</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/08/28/XEcyAr5SxWQFhfC.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/10/09/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC10%E7%AB%A0%20%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/" title="统计学习方法--第10章 HMM 算法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/K8FcuStCQYsTV4A.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">统计学习方法--第10章 HMM 算法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/09/13/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95--%E7%AC%AC2%E7%AB%A0%20%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="统计学习方法--第2章 感知机"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/yO7qIknUupBlsWd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-13</div><div class="title">统计学习方法--第2章 感知机</div></div></a></div><div><a href="/2024/09/14/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95--%E7%AC%AC4%E7%AB%A0%20%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/" title="统计学习方法--第4章 朴素贝叶斯"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/A6ReotnPf9Lriwb.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-14</div><div class="title">统计学习方法--第4章 朴素贝叶斯</div></div></a></div><div><a href="/2024/09/14/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95--%E7%AC%AC3%E7%AB%A0%20k%E8%BF%91%E9%82%BB%E6%B3%95/" title="统计学习方法--第3章 k近邻法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/uDX9laHIOJK6oMv.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-14</div><div class="title">统计学习方法--第3章 k近邻法</div></div></a></div><div><a href="/2024/09/23/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95--%E7%AC%AC5%E7%AB%A0%20%E5%86%B3%E7%AD%96%E6%A0%91/" title="统计学习方法--第5章 决策树"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/K8FcuStCQYsTV4A.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-23</div><div class="title">统计学习方法--第5章 决策树</div></div></a></div><div><a href="/2024/09/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC6%E7%AB%A0%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/" title="统计学习方法--第6章 逻辑回归和最大熵模型"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/yO7qIknUupBlsWd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-26</div><div class="title">统计学习方法--第6章 逻辑回归和最大熵模型</div></div></a></div><div><a href="/2024/09/09/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95--%E7%AC%AC1%E7%AB%A0%20%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA/" title="统计学习方法--第1章 统计学习及监督学习概论"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/6xBSQotbm7N13Kn.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-09</div><div class="title">统计学习方法--第1章 统计学习及监督学习概论</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/WOMi84ksFx3dGY1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LiuJT</div><div class="author-info__description">统计学习笔记&论文阅读</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/TJLJT0929"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/TJLJT0929" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1007582793@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到我的博客！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A6%82%E7%8E%87%E6%97%A0%E5%90%91%E5%9B%BE%E6%A8%A1%E5%9E%8B"><span class="toc-text">1. 概率无向图模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E6%A6%82%E7%8E%87%E6%97%A0%E5%90%91%E5%9B%BE%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">1.1 概率无向图模型的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E6%A6%82%E7%8E%87%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E5%9B%A0%E5%AD%90%E5%88%86%E8%A7%A3"><span class="toc-text">1.2 概率无向图的因子分解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA"><span class="toc-text">2. 条件随机场</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA%E7%9A%84%E5%8F%82%E6%95%B0%E5%8C%96%E5%BD%A2%E5%BC%8F"><span class="toc-text">2.2 条件随机场的参数化形式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA%E7%9A%84%E7%AE%80%E5%8C%96%E5%BD%A2%E5%BC%8F"><span class="toc-text">2.3 条件随机场的简化形式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA%E7%9A%84%E7%9F%A9%E9%98%B5%E5%BD%A2%E5%BC%8F"><span class="toc-text">2.4 条件随机场的矩阵形式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA%E7%9A%84%E6%A6%82%E7%8E%87%E8%AE%A1%E7%AE%97%E9%97%AE%E9%A2%98"><span class="toc-text">3. 条件随机场的概率计算问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95"><span class="toc-text">4. 条件随机场的学习算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E6%94%B9%E8%BF%9B%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%B0%BA%E5%BA%A6%E6%B3%95"><span class="toc-text">4.1 改进的迭代尺度法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E6%8B%9F%E7%89%9B%E9%A1%BF%E6%B3%95"><span class="toc-text">4.2 拟牛顿法</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By LiuJT</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="30" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
