@@ -53,7 +53,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-10-12 20:24:58'
+  postUpdate: '2024-11-03 15:58:34'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -189,8 +189,7 @@ A=UΣVT
 U,VU,VU,V 分别是 m 阶、n 阶正交矩阵（左、右奇异向量）， Σ\mathit{\Sigma}Σ 是 m×nm \times nm×n 的对角矩阵
 
 正交：UUT=I,VVTUU^T=I,VV^TUUT=I,VVT
-对角矩阵：Σ=diag(σ1,…,σp)\mathit{\Sigma}=diag(\sigma ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/10/08/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC16%E7%AB%A0%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/" title="统计学习方法--第15章 主成分分析"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/7ISX9YV1U4Fbp3n.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="统计学习方法--第15章 主成分分析"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/10/08/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC16%E7%AB%A0%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/" title="统计学习方法--第15章 主成分分析">统计学习方法--第15章 主成分分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-10-07T16:00:00.000Z" title="发表于 2024-10-08 00:00:00">2024-10-08</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/">统计学习方法</a></span></div><div class="content">1. 总体主成分分析
-统计分析中，数据变量之间可能存在相关性，于是需要考虑用不相关的变量来代替相关变量。
+对角矩阵：Σ=diag(σ1,…,σp)\mathit{\Sigma}=diag(\sigma ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/10/08/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC16%E7%AB%A0%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/" title="统计学习方法--第16章 主成分分析"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/7ISX9YV1U4Fbp3n.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="统计学习方法--第16章 主成分分析"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/10/08/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC16%E7%AB%A0%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/" title="统计学习方法--第16章 主成分分析">统计学习方法--第16章 主成分分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-10-07T16:00:00.000Z" title="发表于 2024-10-08 00:00:00">2024-10-08</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/">统计学习方法</a></span></div><div class="content">1. 总体主成分分析统计分析中，数据变量之间可能存在相关性，于是需要考虑用不相关的变量来代替相关变量。
 主成分分析（PCA）是一种数据降维的方法，属于多元统计分析方法，基本思想是：通过正交变换由少数线性无关的变量来代替线性相关的变量，并用来表示数据。主要用途是发现数据中的基本结构。
 做法：
 
@@ -199,11 +198,13 @@ U,VU,VU,V 分别是 m 阶、n 阶正交矩阵（左、右奇异向量）， Σ\m
 
 新变量是可能的正交变换中变量的方差的和(信息保存)最大的，方差表示在新变量上信息的大小。将新变量依次称为第一主成分、第二主成分等。
 几何意义：主成分分析等价于进行坐标轴旋转变换，将数据投影到新的坐标轴上。第一坐标轴就是第一主成分，第一主成分就是在旋转变换中选取里样本点的距离平方和最小的轴，数据在每一轴上的坐标值的平方表示对应变量的方差，以此类推。
-1.1 定义
-记
+1.1 定义记
 
-m 维随机变量 x=(x1,… ,xm)T\mathbf{x}=(x_1,\dotso,x_m)^{T}x=(x1​,…,xm​)T
-均值向量 μ\bo ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/09/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC10%E7%AB%A0%20%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/" title="统计学习方法--第10章 HMM 算法"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/rEzRA96Gwaj5DBU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="统计学习方法--第10章 HMM 算法"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/09/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC10%E7%AB%A0%20%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/" title="统计学习方法--第10章 HMM 算法">统计学习方法--第10章 HMM 算法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-09-27T16:00:00.000Z" title="发表于 2024-09-28 00:00:00">2024-09-28</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/">统计学习方法</a></span></div><div class="content">1. 基本概念
+m 维随机变量 $\mathbf{x}=(x_1,\dotso,x_m)^{T}$
+均值向量 $\boldsymbol{\mu}$
+
+
+\boldsymbo ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/09/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC10%E7%AB%A0%20%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/" title="统计学习方法--第10章 HMM 算法"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/08/28/rEzRA96Gwaj5DBU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="统计学习方法--第10章 HMM 算法"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/09/28/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%AC%AC10%E7%AB%A0%20%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/" title="统计学习方法--第10章 HMM 算法">统计学习方法--第10章 HMM 算法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-09-27T16:00:00.000Z" title="发表于 2024-09-28 00:00:00">2024-09-28</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/">统计学习方法</a></span></div><div class="content">1. 基本概念
   随机变量与随机过程 ： 19世纪, 概率论的发展从对(静态)随机变量的研究发展到对随机变量的时间序列 s1,s2,s3,…,st,…s_1,s_2, s_3, \dots,s_t,\dotss1​,s2​,s3​,…,st​,… ,即 随机过程 (动态的)的研究
   马氏链 ：为了简化问题，马尔可夫提出了一种简化的假设，即随机过程中各个状态 sts_tst​ 的概率分布，只与它的前一个状态 $ s_{t-1} $ 有关, 即
 P(st∣s1,s2,s3,…,st−1)=P(st∣st−1)P(s_t|s_1, s_2, s_3, \dots,s_{t-1})=P(s_t|s_{t-1})
